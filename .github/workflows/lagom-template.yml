@@ -67,8 +67,8 @@ jobs:
               echo "host_cc=clang-18" >> "$GITHUB_OUTPUT"
               echo "host_cxx=clang++-18" >> "$GITHUB_OUTPUT"
             elif ${{ inputs.toolchain == 'GNU' }} ; then
-              echo "host_cc=gcc-13" >> "$GITHUB_OUTPUT"
-              echo "host_cxx=g++-13" >> "$GITHUB_OUTPUT"
+              echo "host_cc=gcc-14" >> "$GITHUB_OUTPUT"
+              echo "host_cxx=g++-14" >> "$GITHUB_OUTPUT"
             fi
           elif ${{ inputs.os_name == 'macOS' }} ; then
             echo "host_cc=$(xcrun --find clang)" >> "$GITHUB_OUTPUT"
