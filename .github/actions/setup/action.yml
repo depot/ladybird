@@ -19,8 +19,6 @@ runs:
       run: |
         set -e
 
-        wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-        sudo add-apt-repository 'deb http://apt.llvm.org/noble/ llvm-toolchain-noble-18 main'
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 
 
