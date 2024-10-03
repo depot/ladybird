@@ -11,7 +11,6 @@ env:
 jobs:
   build-and-package:
     runs-on: ${{ matrix.os }}
-    if: always() && github.repository == 'LadybirdBrowser/ladybird' && github.ref == 'refs/heads/master'
     strategy:
       fail-fast: false
       matrix:
@@ -36,16 +35,6 @@ jobs:
         with:
           os: ${{ matrix.os_name }}
           arch: 'Lagom'
-
-      - name: Restore Caches
-        uses: ./.github/actions/cache-restore
-        id: 'cache-restore'
-        with:
-          os: ${{ matrix.os_name }}
-          arch: 'Lagom'
-          cache_key_extra: 'LibJS Artifacts'
-          ccache_path: ${{ env.CCACHE_DIR }}
-          download_cache_path: ${{ github.workspace }}/Build/caches
 
       - name: Create build directory Ubuntu
         run: |
@@ -73,17 +62,3 @@ jobs:
         run: |
           ninja js
           cpack
-
-      - name: Save Caches
-        uses: ./.github/actions/cache-save
-        with:
-          arch: 'Lagom'
-          ccache_path: ${{ env.CCACHE_DIR }}
-          ccache_primary_key: ${{ steps.cache-restore.outputs.ccache_primary_key }}
-
-      - name: Upload js package
-        uses: actions/upload-artifact@v4
-        with:
-          name: ladybird-js-${{ matrix.package_type }}
-          path: Build/ladybird-js*.tar.gz
-          retention-days: 7

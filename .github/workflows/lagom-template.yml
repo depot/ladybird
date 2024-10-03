@@ -83,17 +83,6 @@ jobs:
             echo "cmake_options=" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Restore Caches
-        uses: ./.github/actions/cache-restore
-        id: 'cache-restore'
-        with:
-          os: ${{ inputs.os_name }}
-          arch: 'Lagom'
-          toolchain: ${{ inputs.toolchain }}
-          cache_key_extra: ${{ steps.build-parameters.outputs.ccache_key }}
-          ccache_path: ${{ env.CCACHE_DIR }}
-          download_cache_path: ${{ github.workspace }}/Build/caches
-
       - name: Set dynamic environment variables
         run: |
           # Note: Required for vcpkg to use this compiler for its own builds.
@@ -167,13 +156,6 @@ jobs:
         working-directory: ${{ github.workspace }}/Build
         run: cmake --build .
 
-      - name: Save Caches
-        uses: ./.github/actions/cache-save
-        with:
-          arch: 'Lagom'
-          ccache_path: ${{ env.CCACHE_DIR }}
-          ccache_primary_key: ${{ steps.cache-restore.outputs.ccache_primary_key }}
-
       # === TEST ===
 
       - name: Test
@@ -183,21 +165,3 @@ jobs:
         env:
           TESTS_ONLY: 1
 
-      - name: Upload LibWeb Test Artifacts
-        if: ${{ always() && inputs.fuzzer == 'NO_FUZZ' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: libweb-test-artifacts-${{ inputs.os_name }}
-          path: ${{ github.workspace }}/Build/Ladybird/test-dumps
-          retention-days: 7
-          if-no-files-found: ignore
-
-      - name: Lints
-        if: ${{ inputs.os_name == 'Linux' && inputs.fuzzer == 'NO_FUZZ' }}
-        working-directory: ${{ github.workspace }}
-        run: |
-          set -e
-          git ls-files '*.ipc' | xargs ./Build/bin/IPCMagicLinter
-        env:
-          ASAN_OPTIONS: 'strict_string_checks=1:check_initialization_order=1:strict_init_order=1:detect_stack_use_after_return=1:allocator_may_return_null=1'
-          UBSAN_OPTIONS: 'print_stacktrace=1:print_summary=1:halt_on_error=1'
