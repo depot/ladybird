@@ -67,8 +67,8 @@ jobs:
               echo "host_cc=clang-18" >> "$GITHUB_OUTPUT"
               echo "host_cxx=clang++-18" >> "$GITHUB_OUTPUT"
             elif ${{ inputs.toolchain == 'GNU' }} ; then
-              echo "host_cc=gcc-14" >> "$GITHUB_OUTPUT"
-              echo "host_cxx=g++-14" >> "$GITHUB_OUTPUT"
+              echo "host_cc=gcc-12" >> "$GITHUB_OUTPUT"
+              echo "host_cxx=g++-12" >> "$GITHUB_OUTPUT"
             fi
           elif ${{ inputs.os_name == 'macOS' }} ; then
             echo "host_cc=$(xcrun --find clang)" >> "$GITHUB_OUTPUT"
@@ -115,8 +115,8 @@ jobs:
             -DLAGOM_TOOLS_ONLY=ON \
             -DINSTALL_LAGOM_TOOLS=ON \
             -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/Build/tools-install \
-            -DCMAKE_C_COMPILER=gcc-13 \
-            -DCMAKE_CXX_COMPILER=g++-13 \
+            -DCMAKE_C_COMPILER=gcc-12 \
+            -DCMAKE_CXX_COMPILER=g++-12 \
             -Dpackage=LagomTools
 
           ninja -C ${{ github.workspace }}/Build/tools-build install
