@@ -23,6 +23,7 @@ runs:
         sudo apt-get install -y autoconf autoconf-archive automake build-essential ccache cmake curl fonts-liberation2 \
             gcc g++ libavcodec-dev libavformat-dev libavutil-dev libegl1-mesa-dev libgl1-mesa-dev libpulse-dev libssl-dev \
             libstdc++-12-dev lld nasm ninja-build qt6-base-dev qt6-tools-dev-tools tar unzip zip
+        ln -s /usr/bin/ninja /usr/bin/ninja-build
 
         wget https://github.com/WebAssembly/wabt/releases/download/1.0.35/wabt-1.0.35-ubuntu-20.04.tar.gz
         tar -xzf ./wabt-1.0.35-ubuntu-20.04.tar.gz
