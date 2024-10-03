@@ -20,7 +20,7 @@ runs:
         set -e
 
         sudo apt-get update -y
-        sudo apt-get install -y autoconf autoconf-archive automake build-essential ccache clang clang++ cmake curl fonts-liberation2 \
+        sudo apt-get install -y autoconf autoconf-archive automake build-essential ccache cmake curl fonts-liberation2 \
             gcc g++ libavcodec-dev libavformat-dev libavutil-dev libegl1-mesa-dev libgl1-mesa-dev libpulse-dev libssl-dev \
             libstdc++-12-dev lld nasm ninja-build qt6-base-dev qt6-tools-dev-tools tar unzip zip
 
