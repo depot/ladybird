@@ -19,20 +19,12 @@ runs:
       run: |
         set -e
 
-        sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-
-
         sudo apt-get update -y
         sudo apt-get install -y autoconf autoconf-archive automake build-essential ccache clang clang++ cmake curl fonts-liberation2 \
-            gcc-12 g++-12 libavcodec-dev libavformat-dev libavutil-dev libegl1-mesa-dev libgl1-mesa-dev libpulse-dev libssl-dev \
-            libstdc++-12-dev lld nasm ninja-build qt6-base-dev qt6-tools-dev-tools tar unzip zip
+            gcc g++ libavcodec-dev libavformat-dev libavutil-dev libegl1-mesa-dev libgl1-mesa-dev libpulse-dev libssl-dev \
+            libstdc++-dev lld nasm ninja-build qt6-base-dev qt6-tools-dev-tools tar unzip zip
 
-        sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang 100
-        sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++ 100
-        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 100
-        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 100
-
-        wget https://github.com/WebAssembly/wabt/releases/download/1.0.35/wabt-1.0.35-ubuntu-20.04.tar.gz
+       wget https://github.com/WebAssembly/wabt/releases/download/1.0.35/wabt-1.0.35-ubuntu-20.04.tar.gz
         tar -xzf ./wabt-1.0.35-ubuntu-20.04.tar.gz
         rm ./wabt-1.0.35-ubuntu-20.04.tar.gz
         echo "${{ github.workspace }}/wabt-1.0.35/bin" >> $GITHUB_PATH
